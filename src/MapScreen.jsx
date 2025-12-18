@@ -11,7 +11,7 @@ import {
 
 const MapScreen = ({ stages, stageProgress, enterStage, score }) => {
   return (
-    <div className="min-h-screen bg-[radial-gradient(circle_at_top,_#1e1b4b,_#020617)] p-8">
+    <div className="min-h-screen w-full bg-[#020617] bg-[radial-gradient(circle_at_top,_#1e1b4b,_#020617)] bg-fixed p-8">
       <div className="max-w-6xl mx-auto">
 
         {/* 타이틀 */}
