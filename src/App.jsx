@@ -376,7 +376,7 @@ const stages = [
     const isSuccess = stageScores[activeStage] === 10;
     
     return (
-      <div className="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 p-6 flex items-center justify-center">
+      <div className="min-h-screen w-full bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 p-6 flex items-center justify-center">
         <div className="max-w-2xl w-full bg-white rounded-3xl shadow-2xl p-8">
           <div className="text-center mb-6">
             {isSuccess ? (
@@ -464,7 +464,7 @@ if (currentView === 'map') {
 
   if (currentView === 'password') {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-purple-900 via-indigo-900 to-blue-900 p-6 flex items-center justify-center">
+      <div className="min-h-screen w-full bg-gradient-to-br from-purple-900 via-indigo-900 to-blue-900 p-6 flex items-center justify-center">
         <div className="max-w-md w-full bg-white rounded-3xl shadow-2xl p-8">
           <div className="text-center mb-6">
             <div className="text-6xl mb-4">🔐</div>
@@ -517,7 +517,7 @@ if (currentView === 'map') {
 
   if (currentView === 'ending') {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 p-4 flex items-center justify-center">
+      <div className="min-h-screen w-full bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 p-4 flex items-center justify-center">
         <div className="max-w-2xl w-full bg-white rounded-3xl shadow-2xl p-8 text-center">
           <div className="text-6xl mb-6 animate-bounce">🎉</div>
           <h1 className="text-4xl font-bold text-purple-900 mb-4">탈출 성공!</h1>
@@ -548,7 +548,7 @@ if (currentView === 'map') {
   const labels = ['①', '②', '③', '④'];
 
   return (
-    <div className={`min-h-screen bg-gradient-to-br ${currentStage.color} p-4`}>
+    <div className={`min-h-screen w-full bg-gradient-to-br ${currentStage.color} bg-cover bg-center bg-no-repeat p-4 flex flex-col`}>
       <div className="max-w-4xl mx-auto">
         <div className="bg-white rounded-2xl shadow-xl p-6 mb-6">
           <div className="flex items-center justify-between mb-4">
