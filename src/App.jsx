@@ -292,19 +292,44 @@ const stages = [
   }
 ];
 
+// --- 이 부분만 교체 시작 ---
+
+  // 1. 스테이지 진입 시 점수 리셋 (누적 버그 해결 핵심)
+  const enterStage = (index) => {
+    if (index === 0 || stageProgress[index - 1]) {
+      setActiveStage(index);
+      setCurrentView('stage');
+      setCurrentQuestion(0);
+      setShowStageComplete(false);
+      setStageFailed(false);
+      
+      // 진입 시 해당 스테이지의 점수만 0으로 초기화
+      const newScores = [...stageScores];
+      newScores[index] = 0;
+      setStageScores(newScores);
+      
+      // UI 초기화
+      setSelectedAnswer(null);
+      setIsCorrect(null);
+      setShowResult(false);
+    }
+  };
+
+  // 2. 문제 풀 때 점수 반영
   const handleAnswer = (index) => {
     setSelectedAnswer(index);
     const correct = index === stages[activeStage].questions[currentQuestion].answer;
     setIsCorrect(correct);
+    
     if (correct) {
-      setScore(score + 1);
       const newScores = [...stageScores];
-      newScores[activeStage]++;
+      newScores[activeStage]++; // 이번 스테이지 점수만 +1
       setStageScores(newScores);
     }
     setShowResult(true);
   };
 
+  // 3. 다음 문제 버튼 로직
   const handleNext = () => {
     if (currentQuestion < stages[activeStage].questions.length - 1) {
       setCurrentQuestion(currentQuestion + 1);
@@ -312,9 +337,8 @@ const stages = [
       setIsCorrect(null);
       setShowResult(false);
     } else {
-      // 스테이지 완료 체크
+      // 10점 만점일 때만 스테이지 클리어 처리
       if (stageScores[activeStage] === 10) {
-        // 만점일 때만 완료
         const newProgress = [...stageProgress];
         newProgress[activeStage] = true;
         setStageProgress(newProgress);
@@ -323,23 +347,26 @@ const stages = [
         newPasswords[activeStage] = stages[activeStage].password;
         setPasswords(newPasswords);
         
-        setShowStageComplete(true);
+        setStageFailed(false);
       } else {
-        // 만점이 아니면 다시 시도
         setStageFailed(true);
-        setShowStageComplete(true);
       }
+      setShowStageComplete(true);
     }
   };
 
-  const enterStage = (index) => {
-    if (index === 0 || stageProgress[index - 1]) {
-      setActiveStage(index);
-      setCurrentView('stage');
-      setCurrentQuestion(0);
-      setShowStageComplete(false);
-    }
+  // 4. 결과창 닫고 맵으로 나갈 때 전체 점수 동기화
+  const handleStageCompleteClose = () => {
+    // 모든 스테이지의 현재 점수를 다 더해서 전체 점수(score) 업데이트
+    const totalScore = stageScores.reduce((acc, curr) => acc + curr, 0);
+    setScore(totalScore);
+    
+    setShowStageComplete(false);
+    setStageFailed(false);
+    setCurrentView('map');
   };
+
+  // --- 이 부분만 교체 끝 ---
 
   const handlePasswordSubmit = () => {
     const correctPassword = passwords.join('');
