@@ -638,31 +638,32 @@ if (currentView === 'map') {
             </h3>
           </div>
 
-          <div className="space-y-3">
-            {question.options.map((option, index) => (
-              <button
-                key={index}
-                onClick={() => !showResult && handleAnswer(index)}
-                disabled={showResult}
-                className={`w-full p-4 rounded-xl text-left transition-all duration-300 ${
-                  showResult
-                    ? index === question.answer
-                      ? 'bg-green-100 border-2 border-green-500 text-green-800'
-                      : selectedAnswer === index
-                      ? 'bg-red-100 border-2 border-red-500 text-red-800'
-                      : 'bg-gray-100 text-gray-600'
-                    : selectedAnswer === index
-                    ? 'bg-purple-100 border-2 border-purple-500 text-purple-800'
-                    : 'bg-gray-50 hover:bg-purple-50 border-2 border-gray-200 hover:border-purple-300'
-                }`}
-              >
-                <div className="flex items-center gap-3">
-                  <span className="font-bold text-lg">{labels[index]}</span>
-                  <span className="text-base">{option}</span>
-                </div>
-              </button>
-            ))}
-          </div>
+// ✅ 이 코드로 갈아끼우세요
+<div className="space-y-3">
+  {question.options.map((option, index) => (
+    <button
+      key={index}
+      onClick={() => !showResult && handleAnswer(index)}
+      disabled={showResult}
+      className={`w-full p-4 rounded-xl text-left transition-all duration-300 ${
+        showResult
+          ? selectedAnswer === index
+            ? isCorrect
+              ? 'bg-green-100 border-2 border-green-500 text-green-800' // 정답일 때 내 선택만 초록색
+              : 'bg-red-100 border-2 border-red-500 text-red-800'     // 오답일 때 내 선택만 빨간색
+            : 'bg-gray-100 text-gray-400'                             // 선택 안 한 건 그냥 흐리게
+          : selectedAnswer === index
+          ? 'bg-purple-100 border-2 border-purple-500 text-purple-800'
+          : 'bg-gray-50 hover:bg-purple-50 border-2 border-gray-200 hover:border-purple-300'
+      }`}
+    >
+      <div className="flex items-center gap-3">
+        <span className="font-bold text-lg">{labels[index]}</span>
+        <span className="text-base">{option}</span>
+      </div>
+    </button>
+  ))}
+</div>
 
 {showResult && (
             <div className={`mt-6 p-6 rounded-xl ${isCorrect ? 'bg-green-50' : 'bg-red-50'}`}>
