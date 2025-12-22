@@ -637,7 +637,7 @@ if (currentView === 'map') {
             ))}
           </div>
 
-          {showResult && (
+{showResult && (
             <div className={`mt-6 p-6 rounded-xl ${isCorrect ? 'bg-green-50' : 'bg-red-50'}`}>
               <div className="flex items-center gap-3 mb-3">
                 {isCorrect ? (
@@ -648,13 +648,13 @@ if (currentView === 'map') {
                 ) : (
                   <>
                     <span className="text-2xl">❌</span>
-                    <span className="text-xl font-bold text-red-700">아쉽네요!</span>
+                    <span className="text-xl font-bold text-red-700">틀렸습니다! 다시 한번 생각해보세요.</span>
                   </>
                 )}
               </div>
-              <p className="text-gray-700 mb-4">
-                정답: <span className="font-bold">{labels[question.answer]} {question.options[question.answer]}</span>
-              </p>
+              
+              {/* [수정 포인트] 정답을 텍스트로 보여주던 <p> 태그를 제거했습니다. */}
+              
               <button
                 onClick={handleNext}
                 className="w-full bg-gradient-to-r from-purple-600 to-pink-600 text-white py-4 rounded-xl font-bold text-lg hover:from-purple-700 hover:to-pink-700 transition-all duration-300 flex items-center justify-center gap-2"
